@@ -21,14 +21,14 @@ void Game::updateDeltaTime()
 }
 
 Game::Game(std::string title, sf::Vector2u windowSize)
-    : _title{title}, _windowSize{windowSize}, _cameraController{_player}, _score{_player, _cameraController.getView()}
+    : _title{title}, _windowSize{windowSize}, _cameraController{_player}, _score{_player, _cameraController.getView()}, _background{_player}
 {
   start();
 }
 
 void Game::start()
 {
-  _background.setTexture(backgroundTexture);
+  //_background.setTexture(backgroundTexture);
   
   _window.create(sf::VideoMode(_windowSize.x, _windowSize.y), _title);
   _window.setFramerateLimit(0);
@@ -38,14 +38,15 @@ void Game::start()
 
   _player.setMass(3);
   _player.setPosition(sf::Vector2f{600, 300});
-  
-  _player.registerThisInStaticVectorOnLayer(0);
-  _spikes.registerThisInStaticVectorOnLayer(2);
+
+  _background.registerThisInStaticVectorOnLayer(0);
+  _player.registerThisInStaticVectorOnLayer(1);
+  _spikes.registerThisInStaticVectorOnLayer(3);
   _score.registerThisInStaticVector();
   
    for(auto& platform : _world.getPlatforms())
   {
-    platform.registerThisInStaticVectorOnLayer(1);
+    platform.registerThisInStaticVectorOnLayer(2);
   }
 }
 
@@ -64,7 +65,7 @@ void Game::draw()
 {
   _window.clear();
   
-  for(int i = 0; i <= 2; i++)
+  for(int i = 0; i <= 3; i++)
   {
     for(auto& obj : GameObject::gameObjects)
     {
@@ -93,6 +94,7 @@ void Game::update()
   _window.setView(_cameraController.getView());
   _score.update();
   _spikes.update(deltaTime);
+  _background.update();
   _fpsCounter.work();
   
   restartTimer();
@@ -106,11 +108,12 @@ void Game::restart()
 
   for(auto& platform : _world.getPlatforms())
   {
-    platform.registerThisInStaticVectorOnLayer(1);
+    platform.registerThisInStaticVectorOnLayer(2);
   }
 
   _player.reset();
   _spikes.reset();
+  _background.reset();
   _score.reset();
   _cameraController.reset(sf::Vector2f{_windowSize.x/2.0f, _windowSize.y/2.0f});
   

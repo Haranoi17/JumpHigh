@@ -13,6 +13,8 @@
 #include "Score/Score.h"
 #include "Spikes/Spikes.h"
 #include "Game/FpsCounter.hpp"
+#include "World/background.h"
+
 
 class Game
 {
@@ -61,8 +63,9 @@ class Game
   World _world;
   Score _score;
   Spikes _spikes;
+  Background _background;
 
-  sf::Sprite _background;
+  //sf::Sprite _background;
 
   FpsCounter _fpsCounter;
 };

@@ -14,6 +14,7 @@ int main()
     Menu::font.loadFromFile("./resources/Fonts/Kamikaze.ttf");
     Score::font.loadFromFile("./resources/Fonts/Kamikaze.ttf");
     Spikes::spikesTexture.loadFromFile("./resources/Textures/Spikes/Spikes2.png");
+    Background::BACKG_TEXTURE.loadFromFile("./resources/Textures/BackGround/light1.png");
     Game::deathTexture.loadFromFile("./resources/Textures/DeathScreen/gameOver.png");
 
     Game game{};
